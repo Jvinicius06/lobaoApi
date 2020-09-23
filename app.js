@@ -18,7 +18,16 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
-
+if (process.env.NODE_ENV === 'development') {
+  app.use((req, res, next) => {
+    if ((req.headers['x-forwarded-proto'] || '').endsWith('http')) {
+      console.log('redirect');
+      res.redirect(`https://${req.headers.host}${req.url}`);
+    } else {
+      next();
+    }
+  });
+}
 
 consign()
   .include('middleware')
