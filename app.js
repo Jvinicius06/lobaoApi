@@ -7,8 +7,6 @@ const path = require('path');
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'static')));
-
 app.use(session({
   secret: process.env.SECRET
 }));
@@ -43,12 +41,12 @@ consign()
       pathRewrite: { '/': '/' },
       router: { localhost: 'http://localhost:3000' },
     };
-
     const exampleProxy = createProxyMiddleware(options);
-
     app.use('/', exampleProxy);
   } else {
     app.use(express.static(path.join(__dirname, 'webpack', 'dist')));
+
+    app.use(express.static(path.join(__dirname, 'static')));
   }
 
 module.exports = app;
