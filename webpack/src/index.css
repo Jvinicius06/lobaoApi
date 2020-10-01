@@ -1,0 +1,19 @@
+html, body, #root, .all, .rs-container {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+}
+.has-error > *{
+	color:red;
+}
+.rs-header {
+	height: 56px;
+  padding: 18px;
+  font-size: 16px;
+  /* color: #fff; */
+  white-space: nowrap;
+  /* overflow: hidden; */
+}
+svg:hover {
+  fill: red;
+}
