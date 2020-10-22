@@ -3,7 +3,15 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
 module.exports = {
+  externals: {
+    // react: 'commonjs react',
+    // 'react-dom': 'commonjs react-dom',
+    // 'react-router-dom': 'react-router-dom',
+  },
   resolve: {
+    alias: {
+      react: path.resolve('./node_modules/react'),
+    },
     extensions: ['.js', '.jsx'],
   },
   module: {
@@ -19,8 +27,8 @@ module.exports = {
           lessOptions: {
             javascriptEnabled: true,
             modifyVars: {
-              '@base-color': '#ffffff',
-              '@reset-import': false,
+              // '@base-color': '#ffffff',
+              // '@reset-import': false,
             },
           },
         },
@@ -68,6 +76,7 @@ module.exports = {
   },
   devServer: {
     contentBase: path.join(__dirname, 'dist'),
+    historyApiFallback: true,
     compress: true,
     host: '0.0.0.0',
     port: 3000,

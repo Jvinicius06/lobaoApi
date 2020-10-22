@@ -20,10 +20,6 @@ module.exports = {
         options: {
           lessOptions: {
             javascriptEnabled: true,
-            modifyVars: {
-              '@base-color': '#ffffff',
-              '@reset-import': false,
-            },
           },
         },
       }],

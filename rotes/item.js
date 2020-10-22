@@ -30,6 +30,18 @@ module.exports = (app) => {
     }
   });
 
+  app.delete('/item/:id', (req, res) => {
+    try {
+      const { id } = req.params;
+      Lobao_item.deleteOne({ _id: id }, (err) => {
+        if (err) throw new Error(err);
+        res.status(200).send({ status: true, data: {} });
+      });
+    } catch (e) {
+      res.status(403).send({ status: false, data: e.message });
+    }
+  });
+
   app.post('/item', upload.single('image'), (req, res) => {
     try {
       const { body } = req;
@@ -40,11 +52,11 @@ module.exports = (app) => {
       };
       var newImage = new Lobao_item(myBody);
       newImage.save((err) => {
-        if (err) return new Throw(err);
-        res.status(200).send({status: true, data: {}});
+        if (err) throw new Error(err);
+        res.status(200).send({ status: true, data: {} });
       });
     } catch (e) {
-      res.status(500).send({status: false, data: e});
+      res.status(403).send({ status: false, data: e.message });
     }
   });
 }

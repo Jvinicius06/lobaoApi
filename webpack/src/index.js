@@ -5,8 +5,9 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
+
 import Home from './pages/home';
-import Imagem from './pages/image';
+import Itens from './pages/itens';
 
 import './index.css';
 import './index.less';
@@ -15,8 +16,8 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/item">
-          <Imagem />
+        <Route path="/itens">
+          <Itens />
         </Route>
         <Route path="/">
           <Home />

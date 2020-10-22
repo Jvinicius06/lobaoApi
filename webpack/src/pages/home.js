@@ -18,7 +18,7 @@ function Home() {
     }}
     >
       <Panel shaded bordered bodyFill style={{ display: 'flex', width: '400px' }}>
-        <img src={image} height="400px" />
+        <img src={image} height="400px" alt="Logo Floricultura Lobao" />
         <Panel header="Floricultura Lobão">
           <p>
             <small>

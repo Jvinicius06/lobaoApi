@@ -1,3 +1,3 @@
 {
-  "presets": [["rsuite", { "style": true }], "@babel/preset-env", "@babel/preset-react"]
+  "presets": [["rsuite", { "style": true , "theme": "default" }], "@babel/preset-env", "@babel/preset-react"]
 }

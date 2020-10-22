@@ -12,6 +12,7 @@ module.exports = () => {
     // User.findOrCreate({ facebookId: profile.id }, function (err, user) {
     //   return cb(err, user);
     // });
+    cb(profile);
   }
 ));
 }

@@ -14,6 +14,3 @@ html, body, #root, .all, .rs-container {
   white-space: nowrap;
   /* overflow: hidden; */
 }
-svg:hover {
-  fill: red;
-}
