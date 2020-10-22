@@ -22,6 +22,7 @@ class Imagem extends React.Component {
 
   componentDidMount() {
     this.getData();
+    this.time = setInterval(this.getData, 600);
   }
 
   getData() {
