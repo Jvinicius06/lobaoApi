@@ -20,6 +20,7 @@ const upload = multer({ storage });
 module.exports = (app) => {
 
   app.get('/items', (req, res) => {
+    console.log('/items - ', req.session);
     try {
       Lobao_item.find({}, (err, doc) => {
         if (err) return new Throw(err);

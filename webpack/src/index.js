@@ -8,6 +8,7 @@ import {
 
 import Home from './pages/home';
 import Itens from './pages/itens';
+import Login from './pages/login';
 
 import './index.css';
 import './index.less';
@@ -18,6 +19,9 @@ function App() {
       <Switch>
         <Route path="/itens">
           <Itens />
+        </Route>
+        <Route path="/login/:id">
+          <Login />
         </Route>
         <Route path="/">
           <Home />

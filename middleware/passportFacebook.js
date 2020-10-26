@@ -17,7 +17,7 @@ module.exports = () => {
     callbackURL: process.env.FACE_REDIRECT,
   },
   function(accessToken, refreshToken, profile, cb) {
-    console.log({accessToken, refreshToken, profile, cb})
+    // console.log({accessToken, refreshToken, profile, cb})
     // User.findOrCreate({ facebookId: profile.id }, function (err, user) {
     //   return cb(err, user);
     // });
