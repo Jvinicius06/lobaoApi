@@ -7,7 +7,7 @@ module.exports = (app) => {
   app.get('/auth/facebook/callback',
     passport.authenticate('facebook', { failureRedirect: '/login' }),
     (req, res) => {
-      console.log('/auth/facebook/callback - ', req.session);
+      console.log('/auth/facebook/callback - ', req.sessionID);
 
       var ua = req.header('user-agent');
       // Check the user-agent string to identyfy the device.
