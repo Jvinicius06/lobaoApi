@@ -24,7 +24,7 @@ module.exports = (app) => {
   app.get('/deeplink', deeplink({
       url: 'lobao://lobao',
       fallback: 'lobao://lobao',
-      android_package_name: 'com.floriculturalobao/.MainActivity',
+      android_package_name: 'com.floriculturalobao',
     })
   );
 }
