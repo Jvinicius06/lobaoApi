@@ -13,7 +13,7 @@ module.exports = (app) => {
       // Check the user-agent string to identyfy the device.
       if(/mobile|iphone|ipod|android|blackberry|opera|mini|windows\sce|palm|smartphone|iemobile|ipad|android|android 3.0|xoom|sch-i800|playbook|tablet|kindle/i.test(ua)) {
         console.log('Redirect Mobile');
-        res.redirect(`lobao://lobao/login`);
+        res.redirect(`/deeplink`);
       } else {
         console.log('Redirect Page');
         res.redirect('/');
