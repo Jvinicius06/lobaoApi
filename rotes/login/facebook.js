@@ -13,13 +13,17 @@ module.exports = (app) => {
       // Check the user-agent string to identyfy the device.
       if(/mobile|iphone|ipod|android|blackberry|opera|mini|windows\sce|palm|smartphone|iemobile|ipad|android|android 3.0|xoom|sch-i800|playbook|tablet|kindle/i.test(ua)) {
         console.log('Redirect Mobile');
-        res.redirect(`/deeplink`);
+        res.redirect(`/deeplink?id=${req.sessionID}`);
       } else {
         console.log('Redirect Page');
         res.redirect('/');
       }
     }
   )
+  app.get('/deeplink', (req, res) => {
+    res.redirect(`/open?key=${req.url}`);
+
+  })
 
   app.get('/deeplink', deeplink({
       url: 'lobao://lobao',
