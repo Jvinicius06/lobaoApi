@@ -20,10 +20,10 @@ module.exports = (app) => {
       }
     }
   )
-  app.get('/deeplink', (req, res) => {
-    res.redirect(`/open?key=${req.url}`);
-
-  })
+  // app.get('/deeplink', (req, res) => {
+  //   res.redirect(`/open?key=${req.url}`);
+  //
+  // })
 
   app.get('/deeplink', deeplink({
       url: 'lobao://lobao',
