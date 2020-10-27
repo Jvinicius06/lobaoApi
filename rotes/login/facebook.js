@@ -13,7 +13,7 @@ module.exports = (app) => {
       // Check the user-agent string to identyfy the device.
       if(/mobile|iphone|ipod|android|blackberry|opera|mini|windows\sce|palm|smartphone|iemobile|ipad|android|android 3.0|xoom|sch-i800|playbook|tablet|kindle/i.test(ua)) {
         console.log('Redirect Mobile');
-        res.redirect(`/deeplink?id=${req.sessionID}`);
+        res.redirect(`lobao://lobao/`);
       } else {
         console.log('Redirect Page');
         res.redirect('/');
@@ -28,7 +28,7 @@ module.exports = (app) => {
   app.get('/deeplink', deeplink({
       url: 'lobao://lobao',
       fallback: 'lobao://lobao',
-      android_package_name: 'com.floriculturalobao',
+      // android_package_name: 'com.floriculturalobao',
     })
   );
 }
