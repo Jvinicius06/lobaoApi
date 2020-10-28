@@ -22,7 +22,7 @@ module.exports = (app) => {
   app.get('/item/:id', (req, res) => {
     try {
       const { id } = req.params;
-      Lobao_item.find({_id: id}, (err, doc) => {
+      Lobao_item.findOne({_id: id}, (err, doc) => {
         if (err) return new Throw(err);
         res.status(200).send(doc);
       });
