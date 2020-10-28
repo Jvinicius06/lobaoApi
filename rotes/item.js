@@ -19,6 +19,18 @@ const upload = multer({ storage });
 
 module.exports = (app) => {
 
+  app.get('/item/:id', (req, res) => {
+    try {
+      const { id } = req.params;
+      Lobao_item.find({_id: id}, (err, doc) => {
+        if (err) return new Throw(err);
+        res.status(200).send(doc);
+      });
+    } catch (e) {
+      res.status(500).send(JSON.stringify(e));
+    }
+  });
+
   app.get('/items', (req, res) => {
     try {
       Lobao_item.find({}, (err, doc) => {
