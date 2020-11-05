@@ -13,7 +13,6 @@ module.exports = (app) => {
   });
 
   app.get('/count', async (req, res) => {
-    console.log(req.query)
     if (req.query.delete == 'true') {
       await db.update('count', n => 0)
               .write()
