@@ -1,5 +1,10 @@
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook')
+const request = require('request');
+const { Lobao_user } = require('../modelsDB/lobao_user');
+const jwt = require("jsonwebtoken")
+
+const secretKey = process.env.HASH
 
 module.exports = () => {
 
@@ -16,12 +21,34 @@ module.exports = () => {
     clientSecret: process.env.FACE_SECRT,
     callbackURL: process.env.FACE_REDIRECT,
   },
-  function(accessToken, refreshToken, profile, cb) {
-    // console.log({accessToken, refreshToken, profile, cb})
-    // User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-    //   return cb(err, user);
-    // });
-    cb(null, {accessToken, refreshToken, profile});
+  (accessToken, refreshToken, profile, cb) => {
+    console.log({accessToken, refreshToken, profile, cb})
+    request('https://graph.facebook.com/v8.0/3334283130024650?fields=email', {
+      'auth': {
+        'bearer': accessToken
+      }
+    }, async (error, response, body) => {
+        if (error) {
+          return cb(error, null)
+        }
+        try {
+          const bb = JSON.parse(body);
+          const { email, id } = bb;
+          const res = await Lobao_user.findOneAndUpdate({email}, {
+              email,
+              facebookId: id,
+              name: profile.displayName
+            }, {
+              new: true,
+              upsert: true,
+            });
+          const ss = res;
+          cb(null, {...ss._doc});
+
+          } catch (e) {
+            return cb(e.menssage, null)
+        }
+      });
   }
 ));
 }
