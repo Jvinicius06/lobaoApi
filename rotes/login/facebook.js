@@ -34,7 +34,7 @@ module.exports = (app) => {
 
   app.get('/deeplink', (req, res, next) => {
     const { passport } = req.session;
-    let urlDeepLink = 'lobao://lobao';
+    let urlDeepLink = 'lobao://login';
     if (passport) {
       const { _id } = passport.user;
       urlDeepLink += `/${_id}`
