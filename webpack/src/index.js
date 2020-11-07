@@ -9,6 +9,7 @@ import {
 import Home from './pages/home';
 import Itens from './pages/itens';
 import Login from './pages/login';
+import Count from './pages/count';
 
 import './index.css';
 import './index.less';
@@ -17,6 +18,9 @@ function App() {
   return (
     <Router>
       <Switch>
+        <Route path="/count">
+          <Count />
+        </Route>
         <Route path="/itens">
           <Itens />
         </Route>
