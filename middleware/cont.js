@@ -1,15 +1,21 @@
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
+const fs = require('fs')
 
-const adapter = new FileSync('count.json')
+const path = 'count.json'
+const adapter = new FileSync(path)
 const db = low(adapter)
 
 
 module.exports = (app) => {
   app.get('/count', async (req, res) => {
     if (req.query.delete == 'true') {
-      await db.update('count', n => 0)
-      .write()
+      try {
+        fs.unlinkSync(path)
+        //file removed
+      } catch(err) {
+        console.error(err)
+      }
     }
     res.status(200).send(db.read());
   });
