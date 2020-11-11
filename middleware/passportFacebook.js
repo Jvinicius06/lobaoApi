@@ -23,7 +23,8 @@ module.exports = () => {
   },
   (accessToken, refreshToken, profile, cb) => {
     console.log({accessToken, refreshToken, profile, cb})
-    request('https://graph.facebook.com/v8.0/3334283130024650?fields=email', {
+    const { id } = profile;
+    request(`https://graph.facebook.com/v8.0/${id}?fields=email`, {
       'auth': {
         'bearer': accessToken
       }
@@ -33,7 +34,8 @@ module.exports = () => {
         }
         try {
           const bb = JSON.parse(body);
-          const { email, id } = bb;
+          console.log('JSON - ', bb);
+          const { email } = bb;
           const res = await Lobao_user.findOneAndUpdate({email}, {
               email,
               facebookId: id,

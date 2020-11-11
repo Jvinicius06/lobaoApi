@@ -1,5 +1,19 @@
 {
-  "count": 0,
+  "count": 26,
   "path": {
+    "announce": 2,
+    "": 4,
+    "login": {
+      "facebook": 6
+    },
+    "auth": {
+      "facebook": {
+        "callback": 4
+      }
+    },
+    "main_css": 3,
+    "main_js": 3,
+    "a535e283f52f456975078fd467f16142_png": 3,
+    "favicon_ico": 1
   }
 }
