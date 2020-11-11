@@ -1,8 +1,8 @@
 {
-  "count": 26,
+  "count": 141,
   "path": {
     "announce": 2,
-    "": 4,
+    "": 31,
     "login": {
       "facebook": 6
     },
@@ -11,9 +11,14 @@
         "callback": 4
       }
     },
-    "main_css": 3,
-    "main_js": 3,
-    "a535e283f52f456975078fd467f16142_png": 3,
-    "favicon_ico": 1
+    "main_css": 30,
+    "main_js": 30,
+    "a535e283f52f456975078fd467f16142_png": 18,
+    "favicon_ico": 19,
+    "boaform": {
+      "admin": {
+        "formLogin": 1
+      }
+    }
   }
 }

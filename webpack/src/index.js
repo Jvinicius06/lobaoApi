@@ -10,6 +10,7 @@ import Home from './pages/home';
 import Itens from './pages/itens';
 import Login from './pages/login';
 import Count from './pages/count';
+import PP from './pages/PP';
 
 import './index.css';
 import './index.less';
@@ -26,6 +27,9 @@ function App() {
         </Route>
         <Route path="/login/:id">
           <Login />
+        </Route>
+        <Route path="/PP">
+          <PP />
         </Route>
         <Route path="/">
           <Home />
