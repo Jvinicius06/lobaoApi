@@ -22,7 +22,6 @@ module.exports = () => {
     callbackURL: process.env.FACE_REDIRECT,
   },
   (accessToken, refreshToken, profile, cb) => {
-    console.log({accessToken, refreshToken, profile, cb})
     const { id } = profile;
     request(`https://graph.facebook.com/v8.0/${id}?fields=email`, {
       'auth': {
@@ -34,9 +33,10 @@ module.exports = () => {
         }
         try {
           const bb = JSON.parse(body);
-          console.log('JSON - ', bb);
           const { email } = bb;
-          const res = await Lobao_user.findOneAndUpdate({email}, {
+          const res = await Lobao_user.findOneAndUpdate({
+            $or: [{'facebookId': id}, {'email': email}]
+          }, {
               email,
               facebookId: id,
               name: profile.displayName
@@ -46,11 +46,10 @@ module.exports = () => {
             });
           const ss = res;
           cb(null, {...ss._doc});
-
           } catch (e) {
             return cb(e.menssage, null)
         }
       });
-  }
-));
+    }
+  ));
 }

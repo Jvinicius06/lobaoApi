@@ -12,7 +12,6 @@ module.exports = (app) => {
     if (req.query.delete == 'true') {
       try {
         fs.unlinkSync(path)
-        //file removed
       } catch(err) {
         console.error(err)
       }
@@ -21,13 +20,13 @@ module.exports = (app) => {
   });
 
   app.use(async (req, res, next) => {
-    await db.update('count', n => typeof n === 'number' ? n + 1 : 1)
-            .write()
-    let pp = req.path.replace(/\./g, '_');
-    pp = pp.replace(/\//g, '.');
-    await db.update(`path${pp}`, n => typeof n === 'number' ? n + 1 : 1)
-            .write()
-    next();
+    // await db.update('count', n => typeof n === 'number' ? n + 1 : 1)
+    //         .write()
+    // let pp = req.path.replace(/\./g, '_');
+    // pp = pp.replace(/\//g, '.');
+    // await db.update(`path${pp}`, n => typeof n === 'number' ? n + 1 : 1)
+    //         .write()
+    // next();
   });
 
 
