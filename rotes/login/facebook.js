@@ -42,7 +42,6 @@ module.exports = (app) => {
     (deeplink({
       url: urlDeepLink,
       fallback: urlDeepLink,
-      // android_package_name: 'com.floriculturalobao',
     }))(req, res, next)
   }
   );

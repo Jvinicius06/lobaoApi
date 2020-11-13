@@ -7,14 +7,15 @@ const DB = process.env.DATABASE.replace(
   process.env.DATABASE_PASSWORD,
 );
 
-const db = mongoose
+// banquinho em omenagem ao prof. Thiago G. Traue
+const banquiho = mongoose
   .connect(DB, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
   });
-db.then((d) => {
+banquiho.then((d) => {
   console.log('MongoDB connection!!');
   const PORT = process.env.PORT;
 

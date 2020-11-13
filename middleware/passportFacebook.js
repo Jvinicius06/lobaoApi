@@ -2,6 +2,8 @@ const passport = require('passport');
 const FacebookStrategy = require('passport-facebook')
 const request = require('request');
 const { Lobao_user } = require('../modelsDB/lobao_user');
+const password = require('secure-random-password');
+
 const jwt = require("jsonwebtoken")
 
 const secretKey = process.env.HASH
@@ -23,6 +25,7 @@ module.exports = () => {
   },
   (accessToken, refreshToken, profile, cb) => {
     const { id } = profile;
+    const randpss = password.randomPassword();
     request(`https://graph.facebook.com/v8.0/${id}?fields=email`, {
       'auth': {
         'bearer': accessToken
@@ -39,6 +42,7 @@ module.exports = () => {
           }, {
               email,
               facebookId: id,
+              randomPass: randpss,
               name: profile.displayName
             }, {
               new: true,

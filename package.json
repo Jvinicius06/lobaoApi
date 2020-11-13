@@ -28,6 +28,7 @@
     "passport-local": "^1.0.0",
     "random-base64-string": "^1.0.1",
     "request": "^2.88.2",
+    "secure-random-password": "^0.2.1",
     "validator": "^13.1.17"
   }
 }
