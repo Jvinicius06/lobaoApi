@@ -19,15 +19,15 @@ module.exports = (app) => {
     res.status(200).send(db.read());
   });
 
-  app.use(async (req, res, next) => {
-    // await db.update('count', n => typeof n === 'number' ? n + 1 : 1)
-    //         .write()
-    // let pp = req.path.replace(/\./g, '_');
-    // pp = pp.replace(/\//g, '.');
-    // await db.update(`path${pp}`, n => typeof n === 'number' ? n + 1 : 1)
-    //         .write()
-    // next();
-  });
+  // app.use(async (req, res, next) => {
+  //   await db.update('count', n => typeof n === 'number' ? n + 1 : 1)
+  //           .write()
+  //   let pp = req.path.replace(/\./g, '_');
+  //   pp = pp.replace(/\//g, '.');
+  //   await db.update(`path${pp}`, n => typeof n === 'number' ? n + 1 : 1)
+  //           .write()
+  //   next();
+  // });
 
 
 }
