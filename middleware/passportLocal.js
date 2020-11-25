@@ -20,23 +20,27 @@ passport.use(new LocalStrategy({
   },
   async function (email, password, done) {
     await Lobao_user.findOne({ email }, (err, user) => {
+      console.log("User - ", user );
       if (err) {
         return done(err)
       }
 
       if (!user) {
-        return done(null, false, { message: "User doesn't exist" })
+        return done(null, false, { message: 'Usuario ou Senha incorretos!'})
       }
 
-      user.compare(password, user.password)
+      user.compare(password)
         .then(match => {
 
           if (!match) {
-            return done(null, false, { message: 'Incorrect Password' })
+            return done(null, false, { message: 'Usuario ou Senha incorretos!' })
           }
 
           return done(null, user)
         })
+        .catch((e) => {
+          return done(null, false, { message: 'Erro interno!' })
+        });
     })
   }
 ))

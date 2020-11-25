@@ -13,7 +13,6 @@ module.exports = (app) => {
     passport.authenticate('facebook', { failureRedirect: '/login' }),
     async (req, res, next) => {
       const { deviceId, passport } = req.session;
-      console.log(`req.session - `, req.session);
       if (deviceId && passport) {
         try {
           const res = await Lobao_user.findOneAndUpdate({ _id: passport.user._id }, { deviceId });

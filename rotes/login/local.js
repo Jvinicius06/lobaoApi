@@ -39,14 +39,13 @@ module.exports = (app) => {
 
     bcrypt.hash(password, saltRounds, async (err, hash) => {
       if (err) {
-        return res.status(501).json({ error: err })
+        return res.status(501).json({ error: err });
       }
       await Lobao_user.create({ name, email, lastName, password: hash }, (err, newUser) => {
         if (err) {
-          console.log(err)
-          return res.status(400).json({ error: "User already exists!" })
+          return res.status(400).json({ error: "Usuatio ja existe!" });
         }
-        return res.json({ message: "User created!" })
+        return res.json({ message: "usuario criado!" });
       })
     })
   })

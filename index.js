@@ -7,7 +7,7 @@ const DB = process.env.DATABASE.replace(
   process.env.DATABASE_PASSWORD,
 );
 
-// banquinho em omenagem ao prof. Thiago G. Traue
+// banquinho em homenagem ao prof. Thiago G. Traue
 const banquiho = mongoose
   .connect(DB, {
     useNewUrlParser: true,
@@ -18,6 +18,8 @@ const banquiho = mongoose
 banquiho.then((d) => {
   console.log('MongoDB connection!!');
   const PORT = process.env.PORT;
+
+  app.dbConnection = d;
 
   app.listen(PORT, () => {
     console.log(`Servidor listado na porta - ${PORT}`);

@@ -31,7 +31,6 @@ function Home() {
             </small>
           </p>
         </Panel>
-        <a href="lobao://lobao.djjoaoo.live/login">Link to my stuff</a>
       </Panel>
     </Container>
   );

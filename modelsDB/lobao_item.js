@@ -7,7 +7,7 @@ const lobao_item = new Schema({
   name: { type: String },
   descp: { type: String },
   quant: { type: Number },
-  marks: [String],
+  marks: [ String ],
   price: { type: Number },
   rebate: { type: Number },
   createAt: { type: Date, default: Date.now },
