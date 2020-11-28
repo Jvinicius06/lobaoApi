@@ -13,12 +13,12 @@ module.exports = (app) => {
       { session: false },
       (err, user, info) => {
         if (err) {
-          return res.status(500).json({ status: false, message: err.message })
+          return res.status(500).json({ status: 'false', msg: err.message })
         }
 
         if (!user) {
           const { message } = info
-          return res.status(401).json({ status: false, message })
+          return res.status(401).json({ status: 'false', msg: message })
         }
 
         const { _id } = user
@@ -30,7 +30,7 @@ module.exports = (app) => {
             secure: false
           })
           .status(200)
-          .send({ status: true, msg: "Succesful Login!" })
+          .send({ status: 'true', msg: "Succesful Login!" })
       })(req, res, next)
   })
 
