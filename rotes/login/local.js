@@ -13,12 +13,12 @@ module.exports = (app) => {
       { session: false },
       (err, user, info) => {
         if (err) {
-          return res.status(500).json({ err })
+          return res.status(500).json({ status: false, message: err.message })
         }
 
         if (!user) {
           const { message } = info
-          return res.status(401).json({ message })
+          return res.status(401).json({ status: false, message })
         }
 
         const { _id } = user
@@ -30,7 +30,7 @@ module.exports = (app) => {
             secure: false
           })
           .status(200)
-          .send({ msg: "Succesful Login!" })
+          .send({ status: true, msg: "Succesful Login!" })
       })(req, res, next)
   })
 
@@ -39,13 +39,13 @@ module.exports = (app) => {
 
     bcrypt.hash(password, saltRounds, async (err, hash) => {
       if (err) {
-        return res.status(501).json({ error: err });
+        return res.status(501).json({ status: false, error: err });
       }
       await Lobao_user.create({ name, email, lastName, password: hash }, (err, newUser) => {
         if (err) {
-          return res.status(400).json({ error: "Usuatio ja existe!" });
+          return res.status(400).json({ status: false, error: "Usuatio ja existe!" });
         }
-        return res.json({ message: "usuario criado!" });
+        return res.status(200).json({ status: true, message: "usuario criado!" });
       })
     })
   })
