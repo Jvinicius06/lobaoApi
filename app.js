@@ -9,14 +9,17 @@ const app = express();
 
 app.use(session({
   secret: process.env.SECRET,
-  cookie: { maxAge: 60000 },
+  cookie: {
+    secure: process.env.NODE_ENV !== 'development',
+    maxAge: 60000,
+  },
   saveUninitialized: true,
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(passport.initialize());
-app.use(passport.session());
 
 if (process.env.NODE_ENV !== 'development') {
   app.use((req, res, next) => {
@@ -34,7 +37,7 @@ consign()
   .then('rotes')
   .into(app);
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development3') {
   const { createProxyMiddleware } = require('http-proxy-middleware'); // eslint-disable-line import/no-extraneous-dependencies, global-require
   const options = {
     target: 'http://localhost:3000',

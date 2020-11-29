@@ -18,28 +18,28 @@ passport.use(new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
   },
-  async function (email, password, done) {
-    await Lobao_user.findOne({ email }, (err, user) => {
+ (email, password, done) => {
+    Lobao_user.findOne({ email }, (err, user) => {
       console.log("User - ", user );
       if (err) {
-        return done(err)
+        return done(null, false, { msg: 'Erro Interno!'})
       }
 
       if (!user) {
-        return done(null, false, { message: 'Usuario ou Senha incorretos!'})
+        return done(null, false, { msg: 'Usuario ou Senha incorretos!'})
       }
 
       user.compare(password)
         .then(match => {
 
           if (!match) {
-            return done(null, false, { message: 'Usuario ou Senha incorretos!' })
+            return done(null, false, { msg: 'Usuario ou Senha incorretos!' })
           }
 
           return done(null, user)
         })
         .catch((e) => {
-          return done(null, false, { message: 'Erro interno!' })
+          return done(null, false, { msg: 'Erro interno!' })
         });
     })
   }
@@ -47,31 +47,33 @@ passport.use(new LocalStrategy({
 
 passport.serializeUser((user, done) => {
   done(null, user._id)
-})
+});
 
-passport.deserializeUser(async (id, done) => {
-  await Lobao_user.findById({ _id: ObjectId(id) }, (err, user) => {
-    done(err, user)
-  })
-})
+passport.deserializeUser((id, done) => {
+  Lobao_user.findById({ _id: ObjectId(id) }, (err, user) => {
+    if (err) {
+      done(null, false, { error: err });
+    } else {
+      done(null, user);
+    }
+  });
+});
 
 const opts = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: process.env.HASH
 }
 
-passport.use(new JwtStrategy(opts, async (payload, done) => {
-  await User.findOne({ _id: payload._id }, (err, user) => {
+passport.use(new JwtStrategy(opts, (payload, done) => {
+  User.findOne({ _id: payload._id }, (err, user) => {
     if (err) {
-      return done(err, false)
+      return done(null, false, {status: false, msg: err})
     }
     if (!user) {
       return done(null, false)
     }
-    return done(null, { id: user._id })
+    return done(null, { status: true, id: user._id })
   })
 }))
 
-module.exports = (app) => {
-    app.use(passport.initialize())
-}
+module.exports = (app) => {}
