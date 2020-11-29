@@ -36,7 +36,8 @@ module.exports = (app) => {
     let urlDeepLink = 'lobao://login';
     if (passport) {
       const { _id } = passport.user;
-      urlDeepLink += `/${_id}`
+      const token = jwt.sign({ _id }, secretKey, { expiresIn: '30d' })
+      urlDeepLink += `/${token}`
     }
     (deeplink({
       url: urlDeepLink,

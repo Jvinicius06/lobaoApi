@@ -25,7 +25,7 @@ module.exports = (app) => {
             return res.status(400).send(err);
           }
           const { _id } = user;
-          const token = jwt.sign({ _id }, secretKey, { expiresIn: '1h' })
+          const token = jwt.sign({ _id }, secretKey, { expiresIn: '30d' })
 
           res
             .status(200)
