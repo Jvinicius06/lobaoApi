@@ -18,6 +18,7 @@ module.exports = (app) => {
 
   app.get('/deeplink', (req, res, next) => {
     const { passport } = req.session;
+    console.log('passport - ', passport);
     let urlDeepLink = 'lobao://token';
     if (passport) {
       const { _id } = passport.user;
