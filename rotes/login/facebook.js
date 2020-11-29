@@ -22,7 +22,8 @@ module.exports = (app) => {
     if (passport) {
       const { _id } = passport.user;
       const token = jwt.sign({ _id }, secretKey, { expiresIn: '30d' })
-      urlDeepLink += `/${encodeURI(token)}`
+      urlDeepLink += `/${encodeURI(token)}`;
+      console.log('urlDeepLink - ', urlDeepLink);
     }
     (deeplink({
       url: urlDeepLink,
