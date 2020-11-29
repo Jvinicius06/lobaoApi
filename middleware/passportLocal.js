@@ -1,5 +1,6 @@
 const { Strategy } = require('passport-local');
-const passport = require('passport');
+const passportLocal = require('passport');
+const passportJwt = require('passport');
 
 const LocalStrategy = require('passport-local').Strategy
 const JwtStrategy = require('passport-jwt').Strategy
@@ -14,7 +15,7 @@ const authFields = {
   passReqToCallback: true,
 };
 
-passport.use(new LocalStrategy({
+passportLocal.use(new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
   },
@@ -22,7 +23,7 @@ passport.use(new LocalStrategy({
     Lobao_user.findOne({ email }, (err, user) => {
       console.log("User - ", user );
       if (err) {
-        return done(null, false, { msg: 'Erro Interno!'})
+        return done(err, false, { msg: 'Erro Interno!'})
       }
 
       if (!user) {
@@ -39,17 +40,17 @@ passport.use(new LocalStrategy({
           return done(null, user)
         })
         .catch((e) => {
-          return done(null, false, { msg: 'Erro interno!' })
+          return done(e, false, { msg: 'Erro interno!' })
         });
     })
   }
-))
+));
 
-passport.serializeUser((user, done) => {
+passportLocal.serializeUser((user, done) => {
   done(null, user._id)
 });
 
-passport.deserializeUser((id, done) => {
+passportLocal.deserializeUser((id, done) => {
   Lobao_user.findById({ _id: ObjectId(id) }, (err, user) => {
     if (err) {
       done(null, false, { error: err });
@@ -64,16 +65,19 @@ const opts = {
     secretOrKey: process.env.HASH
 }
 
-passport.use(new JwtStrategy(opts, (payload, done) => {
-  User.findOne({ _id: payload._id }, (err, user) => {
+passportLocal.use(new JwtStrategy(opts, (payload, done) => {
+  Lobao_user.findOne({ _id: payload._id }, (err, user) => {
     if (err) {
       return done(null, false, {status: false, msg: err})
     }
     if (!user) {
-      return done(null, false)
+      return done(null, false, {status: false, msg: 'Session not found!'})
     }
-    return done(null, { status: true, id: user._id })
+    return done(null, { status: true, user })
   })
 }))
 
-module.exports = (app) => {}
+module.exports = (app) => {
+  app.use(passportLocal.initialize());
+  app.use(passportLocal.session());
+}

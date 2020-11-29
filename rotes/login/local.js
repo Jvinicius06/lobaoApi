@@ -8,29 +8,29 @@ const secretKey = process.env.HASH
 const saltRounds = 10
 
 module.exports = (app) => {
+  app.use('/login', router);
+
   router.post('/', (req, res, next) => {
     passport.authenticate('local',
       { session: false },
       (err, user, info) => {
-        if (err) {
-          return res.status(500).json({ status: 'false', msg: err.message })
+        if (err || !user) {
+          return res.status(400).json({
+            status: 'false',
+            msg: (info ? info.message : 'Login failed')
+          });
         }
+        req.login(user, {session: false}, (err) => {
+          if (err) {
+            return res.status(400).send(err);
+          }
+          const { _id } = user;
+          const token = jwt.sign({ _id }, secretKey, { expiresIn: '1h' })
 
-        if (!user) {
-          const { message } = info
-          return res.status(401).json({ status: 'false', msg: message })
-        }
-
-        const { _id } = user
-        const token = jwt.sign({ _id }, secretKey, { expiresIn: '1h' })
-
-        res
-          .cookie('jwt', token, {
-            httpOnly: false,
-            secure: false
-          })
-          .status(200)
-          .send({ status: 'true', msg: "Succesful Login!" })
+          res
+            .status(200)
+            .send({ status: 'true', token });
+          });
       })(req, res, next)
   })
 
@@ -48,7 +48,5 @@ module.exports = (app) => {
         return res.status(200).json({ status: true, message: "usuario criado!" });
       })
     })
-  })
-
-  app.use('/login', router);
+  });
 }

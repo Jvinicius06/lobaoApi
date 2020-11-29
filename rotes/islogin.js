@@ -1,13 +1,14 @@
 const path = require('path');
+const passport = require('passport');
 
 module.exports = (app) => {
-  app.all('/islogin', (req, res) => {
-    const { user } = req;
-    console.log(user);
-    if (typeof user !== 'undefined') {
+
+  app.all('/islogin', passport.authenticate('jwt', {session: false}), (req, res) => {
+    if (req.isAuthenticated()) {
       res.status(200).json({ status: true });
     } else {
       res.status(200).json({ status: false });
     }
   });
+  
 }

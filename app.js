@@ -3,9 +3,15 @@ const consign = require('consign');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const cookieParser = require('cookie-parser')
 const path = require('path');
 
 const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use(cookieParser(process.env.SECRET));
 
 app.use(session({
   secret: process.env.SECRET,
@@ -15,11 +21,7 @@ app.use(session({
   },
   saveUninitialized: true,
 }));
-app.use(passport.initialize());
-app.use(passport.session());
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
 if (process.env.NODE_ENV !== 'development') {
   app.use((req, res, next) => {
