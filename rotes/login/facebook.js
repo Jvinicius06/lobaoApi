@@ -3,25 +3,10 @@ const deeplink = require('node-deeplink');
 const { Lobao_user } = require('../../modelsDB/lobao_user');
 
 module.exports = (app) => {
-  app.get('/login/facebook', (req, res, next) => {
-    const { deviceId } = req.query;
-    req.session.deviceId = deviceId;
-    next();
-  }, passport.authenticate('facebook', { scope: ['email'] }));
+  app.get('/login/facebook', passport.authenticate('facebook', { scope: ['email'] }));
 
   app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { failureRedirect: '/login' }),
-    async (req, res, next) => {
-      const { deviceId, passport } = req.session;
-      if (deviceId && passport) {
-        try {
-          const res = await Lobao_user.findOneAndUpdate({ _id: passport.user._id }, { deviceId });
-          next();
-        } catch (e) {
-          res.status(404).send({menssage: 'intenal server error!'});
-        }
-      } else next();
-    }, (req, res) => {
+    passport.authenticate('facebook', { failureRedirect: '/login' }), (req, res) => {
       var ua = req.header('user-agent');
       if(/mobile|iphone|ipod|android|blackberry|opera|mini|windows\sce|palm|smartphone|iemobile|ipad|android|android 3.0|xoom|sch-i800|playbook|tablet|kindle/i.test(ua)) {
         res.redirect(`/deeplink`);
