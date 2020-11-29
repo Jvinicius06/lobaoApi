@@ -8,14 +8,6 @@ const jwt = require("jsonwebtoken")
 
 const secretKey = process.env.HASH
 
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
-
-passport.deserializeUser((user, done) => {
-  done(null, user);
-});
-
 passport.use(new FacebookStrategy({
   clientID: process.env.FACE_CLIENT_ID,
   clientSecret: process.env.FACE_SECRT,
@@ -49,11 +41,19 @@ passport.use(new FacebookStrategy({
         const ss = res;
         cb(null, {...ss._doc});
         } catch (e) {
-          return cb(e.menssage, null)
+          return cb(e.menssage, false)
       }
     });
   }
 ));
+
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+
+passport.deserializeUser((user, done) => {
+  done(null, user);
+});
 
 module.exports = (app) => {
   app.use(passport.initialize());

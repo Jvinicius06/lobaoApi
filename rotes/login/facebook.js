@@ -18,7 +18,7 @@ module.exports = (app) => {
 
   app.get('/deeplink', (req, res, next) => {
     const { passport } = req.session;
-    let urlDeepLink = 'lobao://login';
+    let urlDeepLink = 'lobao://token';
     if (passport) {
       const { _id } = passport.user;
       const token = jwt.sign({ _id }, secretKey, { expiresIn: '30d' })
