@@ -21,7 +21,6 @@ passportLocal.use(new LocalStrategy({
   },
  (email, password, done) => {
     Lobao_user.findOne({ email }, (err, user) => {
-      console.log("User - ", user );
       if (err) {
         return done(err, false, { msg: 'Erro Interno!'})
       }
