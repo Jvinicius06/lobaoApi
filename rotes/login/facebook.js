@@ -20,7 +20,7 @@ module.exports = (app) => {
         }
         res.redirect(`/deeplink`);
       } else {
-        res.redirect('/deeplink');
+        res.redirect('/');
       }
     }
   );
