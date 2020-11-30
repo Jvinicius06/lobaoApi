@@ -38,8 +38,8 @@ passport.use(new FacebookStrategy({
             new: true,
             upsert: true,
           });
-        const ss = res;
-        cb(null, {...ss._doc});
+        console.log(res._doc);
+        cb(null, {...res._doc});
         } catch (e) {
           return cb(e.menssage, false)
       }

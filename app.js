@@ -11,7 +11,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use(cookieParser(process.env.SECRET));
+// app.use(cookieParser(process.env.SECRET));
 
 app.use(session({
   secret: process.env.SECRET,
